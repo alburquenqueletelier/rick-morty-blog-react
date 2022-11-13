@@ -29,12 +29,20 @@ export const Home = () => {
 					}} >
 						Prev
 					</button>
+					<div>
+						<p>
+							Page: {!!character?.info?.prev
+								? parseInt(character?.info.prev.slice(-1))+1
+								: 1
+							}
+							<span> de {character?.info?.pages}</span>
+						</p>
+					</div>
 
 					<button className="btn btn-primary" onClick={() => {
 						if (character.info.next !== null) {
 							getInfo(character.info.next);
 						} else {
-							console.log('oasdf')
 							getInfo(API_URL + "/character");
 						}
 					}}>
