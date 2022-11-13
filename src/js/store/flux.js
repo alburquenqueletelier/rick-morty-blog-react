@@ -1,43 +1,31 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			characters: [],
+			episodes: [],
+			favs:[],
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			getInfo: (url, options = {method: 'GET', headers: {'Content-Type': 'application/json',}})=>{
+				fetch(url, options)
+				.then(resp=>resp.json())
+				.then(data=>{
+					let type = url.split('/')[length(url.split('/')-1)];
+					if (type == 'character') {
+						setStore({characters: data})
+						localStorage.setItem('characters', JSON.stringify(data));
+					};
+					if (type == 'episodes') {
+						setStore({episodes: data})
+						localStorage.setItem('episodes', JSON.stringify(data));
+					};
+				})
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+			loadInfo: (type)=>{
+				const data = JSON.parse(localStorage.getItem(type));
+				if (type == 'characters') setStore({characters: data});
+				if (type == 'episodes') setStore({episodes:data});
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
 		}
 	};
 };
