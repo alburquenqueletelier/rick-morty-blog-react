@@ -11,11 +11,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(resp=>resp.json())
 				.then(data=>{
 					let type = url.split('/')[url.split('/').length-1];
-					if (type == 'character') {
+					if (type.includes('character')) {
 						setStore({character: data})
 						localStorage.setItem('character', JSON.stringify(data));
 					};
-					if (type == 'episode') {
+					if (type.includes('episode')) {
 						setStore({episode: data})
 						localStorage.setItem('episode', JSON.stringify(data));
 					};
