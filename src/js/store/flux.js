@@ -1,30 +1,30 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			characters: [],
-			episodes: [],
+			character: [],
+			episode: [],
 			favs:[],
 		},
 		actions: {
-			getInfo: (url, options = {method: 'GET', headers: {'Content-Type': 'application/json',}})=>{
+			getInfo: (url, options = {method: 'GET', headers: {'Content-Type': 'application/json'}})=>{
 				fetch(url, options)
 				.then(resp=>resp.json())
 				.then(data=>{
-					let type = url.split('/')[length(url.split('/')-1)];
+					let type = url.split('/')[url.split('/').length-1];
 					if (type == 'character') {
-						setStore({characters: data})
-						localStorage.setItem('characters', JSON.stringify(data));
+						setStore({character: data})
+						localStorage.setItem('character', JSON.stringify(data));
 					};
-					if (type == 'episodes') {
-						setStore({episodes: data})
-						localStorage.setItem('episodes', JSON.stringify(data));
+					if (type == 'episode') {
+						setStore({episode: data})
+						localStorage.setItem('episode', JSON.stringify(data));
 					};
 				})
 			},
 			loadInfo: (type)=>{
 				const data = JSON.parse(localStorage.getItem(type));
-				if (type == 'characters') setStore({characters: data});
-				if (type == 'episodes') setStore({episodes:data});
+				if (type == 'character') setStore({character: data});
+				if (type == 'episode') setStore({episode:data});
 			},
 		}
 	};
