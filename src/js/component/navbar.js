@@ -1,12 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+// import { OffCanvas, OffCanvasMenu, OffCanvasBody } from "react-offcanvas";
 
 export const Navbar = () => {
+
+	// const [isMenuOpened, setIsMenuOpened] = useState(false);
+	const showOffcanva = ()=>{
+		const offcanvas = new bootstrap.Offcanvas(document.querySelector('.offcanvas'));
+		offcanvas.show();
+	}
+
+	const handleClick = ()=> {
+		const offcanvas = bootstrap.Offcanvas.getInstance(document.querySelector('.offcanvas'));
+		offcanvas.hide();
+	};
 	return (
-		<nav className="navbar navbar-light bg-light mb-3">
-			<Link to="/">
-				<span className="navbar-brand mb-0 h1">Rick & Morty Blog</span>
-			</Link>
-		</nav>
-	);
+		<>
+			<button onMouseEnter={showOffcanva} className="btn btn-primary sticky-top w-100 menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><span className="navbar-toggler-icon"></span></button>
+
+			{/* <div className="d-none d-md-block sticky-md-top bg-dark">
+				<nav className="nav nav-pills flex-column flex-sm-row">
+					<Link to="/" className="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#">Personajes</Link>
+					<Link to="/espisodes" className="flex-sm-fill text-sm-center nav-link" href="#">Episodios</Link>
+					<Link to="/favs" className="flex-sm-fill text-sm-center nav-link" href="#">Favoritos</Link>
+				</nav>
+			</div> */}
+
+			<div className="offcanvas offcanvas-top" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+				<div className="offcanvas-header">
+					<button type="button" className="btn d-flex justify-content-center w-100" data-bs-dismiss="offcanvas" aria-label="Close">
+					<h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu Principal</h5>
+
+					</button>
+				</div>
+				<div className="offcanvas-body bg-dark">
+				<nav className="nav nav-pills flex-column">
+					<Link onClick={handleClick} to="/" className="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#">Personajes</Link>
+					<Link onClick={handleClick} to="/espisodes" className="flex-sm-fill text-sm-center nav-link" href="#">Episodios</Link>
+					<Link onClick={handleClick} to="/favs" className="flex-sm-fill text-sm-center nav-link" href="#">Favoritos</Link>
+				</nav>
+				</div>
+			</div>
+			<div className="row">
+			<div className="col-md-12">
+				<h1 className="text-center">Rick and Morty</h1>
+			</div>
+			</div>
+		</>
+	)
+
+	// return (
+	// 	<OffCanvas
+	//     width={300}
+	//     transitionDuration={300}
+	//     effect={"push"}
+	//     isMenuOpened={isMenuOpened}
+	//     position={"left"}
+	//   >
+	//     <OffCanvasBody
+	//     //   className={styles.bodyClass}
+	//       style={{ fontSize: "30px" }}
+	//     >
+	//       <p>
+	//         <a href="#" onClick={()=>handleClick()}>
+	//           Toggle Menu
+	//         </a>{" "}
+	//       </p>
+	//     </OffCanvasBody>
+	//     <OffCanvasMenu style={{zIndex: 9, background: 'grey'}}>
+	//     {/* <OffCanvasMenu className={styles.menuClass}> */}
+	//       <p>Placeholder content.</p>
+	//       <ul>
+	//         <li>Link 1</li>
+	//         <li>Link 2</li>
+	//         <li>Link 3</li>
+	//         <li>Link 4</li>
+	//         <li>Link 5</li>
+	//         <li>
+	//           <a href="#" onClick={()=>handleClick()}>
+	//             Toggle Menu
+	//           </a>
+	//         </li>
+	//       </ul>
+	//     </OffCanvasMenu>
+	//   </OffCanvas>
+	// );
 };

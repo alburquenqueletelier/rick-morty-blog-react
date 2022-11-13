@@ -5,17 +5,28 @@ import { API_URL } from "../../config";
 import Loading from "../component/loading";
 
 
-export const Home = () => {
+export const Episodes = () => {
 
 	const { store, actions } = useContext(Context);
 	const {getInfo} = actions;
 	const {character} = store;
 
-	
-
 	return (
 		<div className="container">
 			<div className="row">
+				<div className="col-md-12">
+					<h1 className="text-center">Rick and Morty</h1>
+					{/* {show && <ComponentA />}
+                        <button onClick={() => setShow(!show)}>{show ? "Hide" : "Show"}</button> */}
+				</div>
+
+						{/* ///////////////////////7 */}
+
+
+						{/* ///////////////////////7 */}
+
+
+
 				<div className="col-md-12 d-flex justify-content-around py-3">
 					<button className="btn btn-primary" onClick={() => {
 						if (character.info.prev !== null) {
