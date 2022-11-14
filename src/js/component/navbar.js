@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
 
-	const [activeLink, setActiveLink] = useState("link-characters");
+	const [activeLink, setActiveLink] = useState("");
 
 	const showOffcanva = ()=>{
 		const offcanvas = new bootstrap.Offcanvas(document.querySelector('.offcanvas'));
@@ -12,6 +12,7 @@ export const Navbar = () => {
 	}
 
 	const handleClick = (e)=> {
+		setActiveLink(e.target.id);
 		const offLinks = document.querySelectorAll('a');
 		offLinks.forEach(link=>{
 			if(link.id == e.target.id && !e.target.className.includes('active')){
@@ -29,11 +30,11 @@ export const Navbar = () => {
 		var link;
 		if (location.includes('episodes')){
 			link = document.querySelector('#link-episodes');
-		}
+		} else 
 		if(location.includes('favs')){
 			link = document.querySelector('#link-favs');
 		}
-		if(location.includes('characters')){
+		else{ 
 			link = document.querySelector('#link-characters');
 		}
 		link.classList.add('active')
