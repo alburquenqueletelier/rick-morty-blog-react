@@ -1,19 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import { OffCanvas, OffCanvasMenu, OffCanvasBody } from "react-offcanvas";
 
 export const Navbar = () => {
 
-	// const [isMenuOpened, setIsMenuOpened] = useState(false);
+	const [activeLink, setActiveLink] = useState("link-characters");
+
 	const showOffcanva = ()=>{
 		const offcanvas = new bootstrap.Offcanvas(document.querySelector('.offcanvas'));
 		offcanvas.show();
 	}
 
-	const handleClick = ()=> {
+	const handleClick = (e)=> {
+		const offLinks = document.querySelectorAll('a');
+		offLinks.forEach(link=>{
+			if(link.id == e.target.id && !e.target.className.includes('active')){
+				e.target.classList.add('active');
+			} else {
+				link.classList.remove('active');
+			}
+		});
 		const offcanvas = bootstrap.Offcanvas.getInstance(document.querySelector('.offcanvas'));
 		offcanvas.hide();
 	};
+
+	useEffect(()=>{
+		const location = window.location.href;
+		var link;
+		if (location.includes('episodes')){
+			link = document.querySelector('#link-episodes');
+		}
+		if(location.includes('favs')){
+			link = document.querySelector('#link-favs');
+		}
+		if(location.includes('characters')){
+			link = document.querySelector('#link-characters');
+		}
+		link.classList.add('active')
+	},[])
+
 	return (
 		<>
 			<button onMouseEnter={showOffcanva} className="btn btn-primary sticky-top w-100 menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><span className="navbar-toggler-icon"></span></button>
@@ -35,9 +60,9 @@ export const Navbar = () => {
 				</div>
 				<div className="offcanvas-body bg-dark">
 				<nav className="nav nav-pills flex-column">
-					<Link onClick={handleClick} to="/" className="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#">Personajes</Link>
-					<Link onClick={handleClick} to="/espisodes" className="flex-sm-fill text-sm-center nav-link" href="#">Episodios</Link>
-					<Link onClick={handleClick} to="/favs" className="flex-sm-fill text-sm-center nav-link" href="#">Favoritos</Link>
+					<Link id="link-characters" onClick={handleClick} to="/" className={"flex-sm-fill text-sm-center nav-link"} aria-current="page">Personajes</Link>
+					<Link id="link-episodes" onClick={handleClick} to="/espisodes" className={"flex-sm-fill text-sm-center nav-link"}>Episodios</Link>
+					<Link id="link-favs" onClick={handleClick} to="/favs" className={"flex-sm-fill text-sm-center nav-link"}>Favoritos</Link>
 				</nav>
 				</div>
 			</div>
