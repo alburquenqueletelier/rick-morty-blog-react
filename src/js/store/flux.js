@@ -1,8 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			character: [],
-			episode: [],
+			characters: [],
+			episodes: [],
 			favs:[],
 		},
 		actions: {
@@ -13,18 +13,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					let type = url.split('/')[url.split('/').length-1];
 					if (type.includes('character')) {
 						setStore({character: data})
-						localStorage.setItem('character', JSON.stringify(data));
+						localStorage.setItem('characters', JSON.stringify(data));
 					};
 					if (type.includes('episode')) {
 						setStore({episode: data})
-						localStorage.setItem('episode', JSON.stringify(data));
+						localStorage.setItem('episodes', JSON.stringify(data));
 					};
 				})
 			},
 			loadInfo: (type)=>{
 				const data = JSON.parse(localStorage.getItem(type));
-				if (type == 'character') setStore({character: data});
-				if (type == 'episode') setStore({episode:data});
+				if (type == 'characters') setStore({character: data});
+				if (type == 'episodes') setStore({episode:data});
 			},
 		}
 	};

@@ -5,53 +5,40 @@ import { API_URL } from "../../config";
 import Loading from "../component/loading";
 
 
-export const Episodes = () => {
+export const Episode = () => {
 
 	const { store, actions } = useContext(Context);
 	const {getInfo} = actions;
-	const {character} = store;
+	const {episode} = store;
 
 	return (
 		<div className="container">
 			<div className="row">
-				<div className="col-md-12">
-					<h1 className="text-center">Rick and Morty</h1>
-					{/* {show && <ComponentA />}
-                        <button onClick={() => setShow(!show)}>{show ? "Hide" : "Show"}</button> */}
-				</div>
-
-						{/* ///////////////////////7 */}
-
-
-						{/* ///////////////////////7 */}
-
-
-
 				<div className="col-md-12 d-flex justify-content-around py-3">
 					<button className="btn btn-primary" onClick={() => {
-						if (character.info.prev !== null) {
-							getInfo(character.info.prev);
+						if (episode.info.prev !== null) {
+							getInfo(episode.info.prev);
 						} else {
-							getInfo(API_URL+"/character" + "?page=" + character.info.pages);
+							getInfo(API_URL+"/episode" + "?page=" + episode.info.pages);
 						}
 					}} >
 						Prev
 					</button>
 					<div>
 						<p>
-							Page: {!!character?.info?.prev
-								? parseInt(character?.info.prev.slice(-1))+1
+							Page: {!!episode?.info?.prev
+								? parseInt(episode?.info.prev.slice(-1))+1
 								: 1
 							}
-							<span> de {character?.info?.pages}</span>
+							<span> de {episode?.info?.pages}</span>
 						</p>
 					</div>
 
 					<button className="btn btn-primary" onClick={() => {
-						if (character.info.next !== null) {
-							getInfo(character.info.next);
+						if (episode.info.next !== null) {
+							getInfo(episode.info.next);
 						} else {
-							getInfo(API_URL + "/character");
+							getInfo(API_URL + "/episode");
 						}
 					}}>
 						Next
@@ -60,9 +47,9 @@ export const Episodes = () => {
 			</div>
 			<div className="row">
 				{
-					!!character &&
-						character.results?.length > 0 ?
-						character.results.map((char) => {
+					!!episode &&
+						episode.results?.length > 0 ?
+						episode.results.map((char) => {
 							return (
 								<div className="col-md-6 col-sm-6 col-12" key={char.id}>
 									<CharacterCard {...char} />

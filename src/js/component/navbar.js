@@ -6,16 +6,16 @@ export const Navbar = () => {
 
 	const [activeLink, setActiveLink] = useState("");
 
-	const showOffcanva = ()=>{
+	const showOffcanva = () => {
 		const offcanvas = new bootstrap.Offcanvas(document.querySelector('.offcanvas'));
 		offcanvas.show();
 	}
 
-	const handleClick = (e)=> {
+	const handleClick = (e) => {
 		setActiveLink(e.target.id);
 		const offLinks = document.querySelectorAll('a');
-		offLinks.forEach(link=>{
-			if(link.id == e.target.id && !e.target.className.includes('active')){
+		offLinks.forEach(link => {
+			if (link.id == e.target.id && !e.target.className.includes('active')) {
 				e.target.classList.add('active');
 			} else {
 				link.classList.remove('active');
@@ -25,20 +25,20 @@ export const Navbar = () => {
 		offcanvas.hide();
 	};
 
-	useEffect(()=>{
+	useEffect(() => {
 		const location = window.location.href;
 		var link;
-		if (location.includes('episodes')){
+		if (location.includes('episodes')) {
 			link = document.querySelector('#link-episodes');
-		} else 
-		if(location.includes('favs')){
-			link = document.querySelector('#link-favs');
-		}
-		else{ 
-			link = document.querySelector('#link-characters');
-		}
+		} else
+			if (location.includes('favs')) {
+				link = document.querySelector('#link-favs');
+			}
+			else {
+				link = document.querySelector('#link-characters');
+			}
 		link.classList.add('active')
-	},[])
+	}, [])
 
 	return (
 		<>
@@ -55,22 +55,28 @@ export const Navbar = () => {
 			<div className="offcanvas offcanvas-top" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
 				<div className="offcanvas-header">
 					<button type="button" className="btn d-flex justify-content-center w-100" data-bs-dismiss="offcanvas" aria-label="Close">
-					<h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu Principal</h5>
+						<h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu Principal</h5>
 
 					</button>
 				</div>
 				<div className="offcanvas-body bg-dark">
-				<nav className="nav nav-pills flex-column">
-					<Link id="link-characters" onClick={handleClick} to="/" className={"flex-sm-fill text-sm-center nav-link"} aria-current="page">Personajes</Link>
-					<Link id="link-episodes" onClick={handleClick} to="/espisodes" className={"flex-sm-fill text-sm-center nav-link"}>Episodios</Link>
-					<Link id="link-favs" onClick={handleClick} to="/favs" className={"flex-sm-fill text-sm-center nav-link"}>Favoritos</Link>
-				</nav>
+					<form>
+						<div className="form-floating mb-3 mx-auto" style={{width: '18rem'}}>
+							<input type="text" className="form-control" id="floatingInput" placeholder="Nombre o episodio"/>
+							<label htmlFor="floatingInput">Nombre personaje o episodio</label>
+						</div>
+					</form>
+					<nav className="nav nav-pills flex-column">
+						<Link id="link-characters" onClick={handleClick} to="/" className={"flex-sm-fill text-sm-center nav-link"} aria-current="page">Personajes</Link>
+						<Link id="link-episodes" onClick={handleClick} to="/episodes" className={"flex-sm-fill text-sm-center nav-link"}>Episodios</Link>
+						<Link id="link-favs" onClick={handleClick} to="/favs" className={"flex-sm-fill text-sm-center nav-link"}>Favoritos</Link>
+					</nav>
 				</div>
 			</div>
 			<div className="row">
-			<div className="col-md-12">
-				<h1 className="text-center">Rick and Morty</h1>
-			</div>
+				<div className="col-md-12">
+					<h1 className="text-center">Rick and Morty</h1>
+				</div>
 			</div>
 		</>
 	)

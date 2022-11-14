@@ -9,7 +9,7 @@ const CharacterCard = ({ id, name, status, species, type, image }) => {
     }
 
     return (
-        <div className="card mb-3">
+        <div className="card mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <div className="row g-0">
                 <div className="col-md-4">
                     <img src={image} className="img-fluid rounded-start" alt="..." style={style} />

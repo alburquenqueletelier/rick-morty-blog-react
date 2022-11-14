@@ -3,25 +3,30 @@ import { Context } from "../store/appContext";
 import CharacterCard from "../component/characterCard";
 import { API_URL } from "../../config";
 import Loading from "../component/loading";
+import { Modal } from "../component/modalCharacter";
+import { Modalepisodes } from "../component/modalEpisode";
 
 
 export const Home = () => {
 
 	const { store, actions } = useContext(Context);
-	const {getInfo} = actions;
-	const {character} = store;
-
-	
+	const { getInfo } = actions;
+	const { character } = store;
+	const [showCharacter, setShowCharacter] = useState(null);
 
 	return (
 		<div className="container">
+			<Modal 
+				data={showCharacter}
+			/>
+			<Modalepisodes data={showCharacter?.episode} />
 			<div className="row">
 				<div className="col-md-12 d-flex justify-content-around py-3">
 					<button className="btn btn-primary" onClick={() => {
 						if (character.info.prev !== null) {
 							getInfo(character.info.prev);
 						} else {
-							getInfo(API_URL+"/character" + "?page=" + character.info.pages);
+							getInfo(API_URL + "/character" + "?page=" + character.info.pages);
 						}
 					}} >
 						Prev
@@ -29,7 +34,7 @@ export const Home = () => {
 					<div>
 						<p>
 							Page: {!!character?.info?.prev
-								? parseInt(character?.info.prev.slice(-1))+1
+								? parseInt(character?.info.prev.slice(-1)) + 1
 								: 1
 							}
 							<span> de {character?.info?.pages}</span>
@@ -53,7 +58,7 @@ export const Home = () => {
 						character.results?.length > 0 ?
 						character.results.map((char) => {
 							return (
-								<div className="col-md-6 col-sm-6 col-12" key={char.id}>
+								<div className="col-md-6 col-sm-6 col-12" key={char.id} onClick={()=>setShowCharacter(char)}>
 									<CharacterCard {...char} />
 								</div>
 							)
