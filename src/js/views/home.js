@@ -4,46 +4,46 @@ import CharacterCard from "../component/characterCard";
 import { API_URL } from "../../config";
 import Loading from "../component/loading";
 import { Modal } from "../component/modalCharacter";
-import { Modalepisodes } from "../component/modalEpisode";
+import { ModalList } from "../component/modalList";
 
 
 export const Home = () => {
 
 	const { store, actions } = useContext(Context);
 	const { getInfo } = actions;
-	const { character } = store;
+	const { characters } = store;
 	const [showCharacter, setShowCharacter] = useState(null);
 
 	return (
 		<div className="container">
-			<Modal 
+			<Modal
 				data={showCharacter}
 			/>
-			<Modalepisodes data={showCharacter?.episode} />
+			<ModalList data={showCharacter?.episode} />
 			<div className="row">
 				<div className="col-md-12 d-flex justify-content-around py-3">
 					<button className="btn btn-primary" onClick={() => {
-						if (character.info.prev !== null) {
-							getInfo(character.info.prev);
+						if (characters.info.prev !== null) {
+							getInfo(characters.info.prev);
 						} else {
-							getInfo(API_URL + "/character" + "?page=" + character.info.pages);
+							getInfo(API_URL + "/characters" + "?page=" + characters.info.pages);
 						}
 					}} >
 						Prev
 					</button>
 					<div>
 						<p>
-							Page: {!!character?.info?.prev
-								? parseInt(character?.info.prev.slice(-1)) + 1
+							Page: {!!characters?.info?.prev
+								? parseInt(characters?.info.prev.slice(-1)) + 1
 								: 1
 							}
-							<span> de {character?.info?.pages}</span>
+							<span> de {characters?.info?.pages}</span>
 						</p>
 					</div>
 
 					<button className="btn btn-primary" onClick={() => {
-						if (character.info.next !== null) {
-							getInfo(character.info.next);
+						if (characters.info.next !== null) {
+							getInfo(characters.info.next);
 						} else {
 							getInfo(API_URL + "/character");
 						}
@@ -54,20 +54,28 @@ export const Home = () => {
 			</div>
 			<div className="row">
 				{
-					!!character &&
-						character.results?.length > 0 ?
-						character.results.map((char) => {
+					(!!characters && store.search == "") ?
+						characters.results?.length > 0 &&
+						characters.results.map((char) => {
 							return (
-								<div className="col-md-6 col-sm-6 col-12" key={char.id} onClick={()=>setShowCharacter(char)}>
+								<div className="col-md-6 col-sm-6 col-12" key={char.id} onClick={() => setShowCharacter(char)}>
 									<CharacterCard {...char} />
 								</div>
 							)
-						}) :
-						(
-							<div className="col-md-12 text-center">
-								<Loading />
-							</div>
-						)
+						}) : !!store.search ?
+							characters.results.filter(char => char.name == store.search).map((char) => {
+								return (
+									<div className="col-md-6 col-sm-6 col-12" key={char.id} onClick={() => setShowCharacter(char)}>
+										<CharacterCard {...char} />
+									</div>
+								)
+							})
+							: (
+								<div className="col-md-12 text-center">
+									<Loading />
+								</div>
+							)
+
 				}
 			</div>
 		</div>

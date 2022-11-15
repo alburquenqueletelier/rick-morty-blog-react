@@ -19,7 +19,6 @@ const CharacterCard = ({ id, name, status, species, type, image }) => {
                         <h5 className="card-title">{name}</h5>
                         <p className="card-text">Species: {species}</p>
                         <p className="card-text">Status: {status}</p>
-                        <p className="card-text"><small className="text-muted">{type ? type : "S/I"}</small></p>
                     </div>
                 </div>
             </div>

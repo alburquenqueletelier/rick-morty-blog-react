@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { OffCanvas, OffCanvasMenu, OffCanvasBody } from "react-offcanvas";
+import { Context } from "../store/appContext";
+import { SearchInput } from "./searchInput";
 
 export const Navbar = () => {
 
+	const {actions} = useContext(Context);
 	const [activeLink, setActiveLink] = useState("");
 
 	const showOffcanva = () => {
@@ -13,6 +15,8 @@ export const Navbar = () => {
 
 	const handleClick = (e) => {
 		setActiveLink(e.target.id);
+		actions.setSearch("");
+		document.querySelector('input').value = "";
 		const offLinks = document.querySelectorAll('a');
 		offLinks.forEach(link => {
 			if (link.id == e.target.id && !e.target.className.includes('active')) {
@@ -43,15 +47,6 @@ export const Navbar = () => {
 	return (
 		<>
 			<button onMouseEnter={showOffcanva} className="btn btn-primary sticky-top w-100 menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><span className="navbar-toggler-icon"></span></button>
-
-			{/* <div className="d-none d-md-block sticky-md-top bg-dark">
-				<nav className="nav nav-pills flex-column flex-sm-row">
-					<Link to="/" className="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#">Personajes</Link>
-					<Link to="/espisodes" className="flex-sm-fill text-sm-center nav-link" href="#">Episodios</Link>
-					<Link to="/favs" className="flex-sm-fill text-sm-center nav-link" href="#">Favoritos</Link>
-				</nav>
-			</div> */}
-
 			<div className="offcanvas offcanvas-top" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
 				<div className="offcanvas-header">
 					<button type="button" className="btn d-flex justify-content-center w-100" data-bs-dismiss="offcanvas" aria-label="Close">
@@ -60,12 +55,7 @@ export const Navbar = () => {
 					</button>
 				</div>
 				<div className="offcanvas-body bg-dark">
-					<form>
-						<div className="form-floating mb-3 mx-auto" style={{width: '18rem'}}>
-							<input type="text" className="form-control" id="floatingInput" placeholder="Nombre o episodio"/>
-							<label htmlFor="floatingInput">Nombre personaje o episodio</label>
-						</div>
-					</form>
+					<SearchInput />
 					<nav className="nav nav-pills flex-column">
 						<Link id="link-characters" onClick={handleClick} to="/" className={"flex-sm-fill text-sm-center nav-link"} aria-current="page">Personajes</Link>
 						<Link id="link-episodes" onClick={handleClick} to="/episodes" className={"flex-sm-fill text-sm-center nav-link"}>Episodios</Link>
@@ -75,46 +65,9 @@ export const Navbar = () => {
 			</div>
 			<div className="row">
 				<div className="col-md-12">
-					<h1 className="text-center">Rick and Morty</h1>
+					<h1 className="text-center">Rick and Morty Blog</h1>
 				</div>
 			</div>
 		</>
-	)
-
-	// return (
-	// 	<OffCanvas
-	//     width={300}
-	//     transitionDuration={300}
-	//     effect={"push"}
-	//     isMenuOpened={isMenuOpened}
-	//     position={"left"}
-	//   >
-	//     <OffCanvasBody
-	//     //   className={styles.bodyClass}
-	//       style={{ fontSize: "30px" }}
-	//     >
-	//       <p>
-	//         <a href="#" onClick={()=>handleClick()}>
-	//           Toggle Menu
-	//         </a>{" "}
-	//       </p>
-	//     </OffCanvasBody>
-	//     <OffCanvasMenu style={{zIndex: 9, background: 'grey'}}>
-	//     {/* <OffCanvasMenu className={styles.menuClass}> */}
-	//       <p>Placeholder content.</p>
-	//       <ul>
-	//         <li>Link 1</li>
-	//         <li>Link 2</li>
-	//         <li>Link 3</li>
-	//         <li>Link 4</li>
-	//         <li>Link 5</li>
-	//         <li>
-	//           <a href="#" onClick={()=>handleClick()}>
-	//             Toggle Menu
-	//           </a>
-	//         </li>
-	//       </ul>
-	//     </OffCanvasMenu>
-	//   </OffCanvas>
-	// );
+	);
 };

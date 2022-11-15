@@ -27,6 +27,7 @@ const injectContext = PassedComponent => {
 			else state.actions.getInfo(API_URL+'/character');
 			if (localStorage.getItem('episodes')) state.actions.loadInfo('episodes');
 			else state.actions.getInfo(API_URL+'/episode');
+			if (localStorage.getItem('favs')) state.actions.loadInfo('favs');
 		}, []);
 
 		return (

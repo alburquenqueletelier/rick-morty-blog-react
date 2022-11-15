@@ -3,40 +3,43 @@ import { Context } from "../store/appContext";
 import CharacterCard from "../component/characterCard";
 import { API_URL } from "../../config";
 import Loading from "../component/loading";
+import { EpisodeCard } from "../component/episodeCard";
+import { ModalList } from "../component/modalList";
 
 
 export const Episode = () => {
 
 	const { store, actions } = useContext(Context);
 	const {getInfo} = actions;
-	const {episode} = store;
+	const {episodes} = store;
 
 	return (
 		<div className="container">
+			<ModalList data={store?.listModal}/>
 			<div className="row">
 				<div className="col-md-12 d-flex justify-content-around py-3">
 					<button className="btn btn-primary" onClick={() => {
-						if (episode.info.prev !== null) {
-							getInfo(episode.info.prev);
+						if (episodes.info.prev !== null) {
+							getInfo(episodes.info.prev);
 						} else {
-							getInfo(API_URL+"/episode" + "?page=" + episode.info.pages);
+							getInfo(API_URL+"/episode" + "?page=" + episodes.info.pages);
 						}
 					}} >
 						Prev
 					</button>
 					<div>
 						<p>
-							Page: {!!episode?.info?.prev
-								? parseInt(episode?.info.prev.slice(-1))+1
+							Page: {!!episodes?.info?.prev
+								? parseInt(episodes?.info.prev.slice(-1))+1
 								: 1
 							}
-							<span> de {episode?.info?.pages}</span>
+							<span> de {episodes?.info?.pages}</span>
 						</p>
 					</div>
 
 					<button className="btn btn-primary" onClick={() => {
-						if (episode.info.next !== null) {
-							getInfo(episode.info.next);
+						if (episodes.info.next !== null) {
+							getInfo(episodes.info.next);
 						} else {
 							getInfo(API_URL + "/episode");
 						}
@@ -46,22 +49,31 @@ export const Episode = () => {
 				</div>
 			</div>
 			<div className="row">
-				{
-					!!episode &&
-						episode.results?.length > 0 ?
-						episode.results.map((char) => {
+			{
+					(!!episodes && store.search == "") ?
+						episodes.results?.length > 0 &&
+						episodes.results.map((item) => {
 							return (
-								<div className="col-md-6 col-sm-6 col-12" key={char.id}>
-									<CharacterCard {...char} />
+								<div className="col-md-6 col-sm-6 col-12" key={item.id}>
+									<EpisodeCard {...item} />
 								</div>
 							)
-						}) :
-						(
-							<div className="col-md-12 text-center">
-								<Loading />
-							</div>
-						)
+						}) : !!store.search ?
+							episodes.results.filter(item => item.name == store.search).map((item) => {
+								return (
+									<div className="col-md-6 col-sm-6 col-12" key={item.id}>
+										<EpisodeCard {...item} />
+									</div>
+								)
+							})
+							: (
+								<div className="col-md-12 text-center">
+									<Loading />
+								</div>
+							)
+
 				}
+				
 			</div>
 		</div>
 	)

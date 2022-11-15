@@ -1,3 +1,8 @@
 .menu-button{
     height: 2rem;
 }
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, .15);
+}
