@@ -48,12 +48,12 @@ export const Navbar = () => {
 		<>
 			<button onMouseEnter={showOffcanva} className="btn btn-primary sticky-top w-100 menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><span className="navbar-toggler-icon"></span></button>
 			<div className="offcanvas offcanvas-top" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-				<div className="offcanvas-header">
+				{/* <div className="offcanvas-header">
 					<button type="button" className="btn d-flex justify-content-center w-100" data-bs-dismiss="offcanvas" aria-label="Close">
 						<h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu Principal</h5>
 
 					</button>
-				</div>
+				</div> */}
 				<div className="offcanvas-body bg-dark">
 					<SearchInput />
 					<nav className="nav nav-pills flex-column">
