@@ -18,10 +18,11 @@ export const Pagination = (props) => {
 						} else {
 							getInfo(API_URL + "/"+ type + "?page=" + props?.data?.info?.pages);
 						}
+                        actions.setSearch("");
 					}} >
 						Prev
 					</button>
-					<div className="d-flex pt-2 mx-2 align-middle">
+					<div className="d-flex pt-2gi mx-2 align-middle">
 						<p>
 							Page: {!!props.data?.info?.prev
 								? parseInt(props?.data?.info?.prev?.split("=").slice(-1)) + 1
@@ -37,6 +38,7 @@ export const Pagination = (props) => {
 						} else {
 							getInfo(API_URL + "/" + type);
 						}
+                        actions.setSearch("");
 					}}>
 						Next
 					</button>

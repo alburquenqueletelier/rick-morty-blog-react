@@ -11,14 +11,14 @@ import { Pagination } from "../component/pagination";
 export const Episode = () => {
 
 	const { store, actions } = useContext(Context);
-	const {episodes} = store;
+	const { episodes } = store;
 
 	return (
 		<div className="container">
-			<ModalList data={store?.listModal}/>
+			<ModalList data={store?.listModal} />
 			<Pagination data={store?.episodes} />
 			<div className="row">
-			{
+				{
 					(!!episodes && store.search == "") ?
 						episodes.results?.length > 0 &&
 						episodes.results.map((item) => {
@@ -42,8 +42,9 @@ export const Episode = () => {
 							)
 
 				}
-				
+
 			</div>
+			<Pagination data={store?.episodes} />
 		</div>
 	)
 

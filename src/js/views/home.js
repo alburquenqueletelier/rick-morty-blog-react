@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import CharacterCard from "../component/characterCard";
-import { API_URL } from "../../config";
 import Loading from "../component/loading";
 import { Modal } from "../component/modalCharacter";
 import { ModalList } from "../component/modalList";
@@ -10,8 +9,7 @@ import { Pagination } from "../component/pagination";
 
 export const Home = () => {
 
-	const { store, actions } = useContext(Context);
-	const { getInfo } = actions;
+	const { store } = useContext(Context);
 	const { characters } = store;
 	const [showCharacter, setShowCharacter] = useState(null);
 
@@ -49,6 +47,7 @@ export const Home = () => {
 
 				}
 			</div>
+			{!!characters && <Pagination data={characters}/>}
 		</div>
 	)
 

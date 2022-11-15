@@ -42,11 +42,16 @@ export const Navbar = () => {
 				link = document.querySelector('#link-characters');
 			}
 		link.classList.add('active')
+
+		document.querySelector('.offcanvas').addEventListener('hide.bs.offcanvas', ()=>{
+			document.querySelector('input').value = ""
+
+		});
 	}, [])
 
 	return (
 		<>
-			<button onMouseEnter={showOffcanva} className="btn btn-primary sticky-top w-100 menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><span className="navbar-toggler-icon"></span></button>
+			<button onMouseEnter={showOffcanva} className="btn btn-dark sticky-top w-100 menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><span className="navbar-toggler-icon"></span></button>
 			<div className="offcanvas offcanvas-top" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
 				<div className="offcanvas-body bg-dark">
 					<SearchInput />
@@ -59,7 +64,7 @@ export const Navbar = () => {
 			</div>
 			<div className="row">
 				<div className="col-md-12">
-					<h1 className="text-center">Rick and Morty Blog</h1>
+					<a href="/" className="d-flex justify-content-center"><img id="logo" src="https://images.alphacoders.com/641/641547.jpg" alt="rick&morty" /></a>
 				</div>
 			</div>
 		</>
