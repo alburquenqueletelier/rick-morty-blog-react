@@ -21,11 +21,11 @@ export const EpisodeCard = ({ id, name, air_date, episode, characters, url, crea
                     <div className="col-6 d-flex justify-content-center">Episodio: </div>
                     <div className="col-6 text-center">{episode}</div>
                     <div className="col-6 d-flex justify-content-center">Perosonajes: </div>
-                    <div className="col-6 d-flex justify-content-center"><button onClick={()=>actions.setListModal(characters)} className="btn btn-outline-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Ver todos</button></div>
+                    <div className="col-6 d-flex justify-content-center"><button onClick={()=>actions.setListModal(characters)} className="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Ver todos</button></div>
                 </div>
             </div>
             <div className="card-footer"></div>
-                <button type='button' className={'btn btn-outline-'+episodeState} onClick={()=>addOrRemove({ id, name, air_date, episode, characters, url, created }, "episode")}>{episodeState == "success" ? "Agregar a favoritos" : "Sacar de favoritos"}</button>
+                <button type='button' className={'btn btn-'+episodeState} onClick={()=>addOrRemove({ id, name, air_date, episode, characters, url, created }, "episode")}>{episodeState == "success" ? "Agregar a favoritos" : "Sacar de favoritos"}</button>
         </div>
     );
 };
